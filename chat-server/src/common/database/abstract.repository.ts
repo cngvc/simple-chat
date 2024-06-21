@@ -1,6 +1,7 @@
 import { Logger, NotFoundException } from '@nestjs/common';
-import { AbstractEntity } from './abstract.entity';
 import { FilterQuery, Model, Types, UpdateQuery } from 'mongoose';
+
+import { AbstractEntity } from './abstract.entity';
 
 export abstract class AbstractRepository<T extends AbstractEntity> {
   protected abstract readonly logger: Logger;

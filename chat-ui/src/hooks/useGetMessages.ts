@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+
 import { graphql } from "../gql";
 import { MessagesQueryVariables } from "../gql/graphql";
 

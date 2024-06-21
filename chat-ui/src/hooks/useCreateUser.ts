@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+
 import { graphql } from "../gql";
 
 const createUserDocument = graphql(`

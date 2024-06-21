@@ -1,7 +1,8 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { AbstractEntity } from './../../common/database/abstract.entity';
-import { ObjectType, Field } from '@nestjs/graphql';
+
 import { Message } from '../messages/entities/message.entity';
+import { AbstractEntity } from './../../common/database/abstract.entity';
 
 @Schema({ versionKey: false })
 @ObjectType()

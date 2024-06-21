@@ -1,6 +1,7 @@
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
+
 import { User } from './../users/entities/user.entity';
-import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 
 const getCurrentUserByContext = (context: ExecutionContext): User => {
   if (context.getType() === 'http') {

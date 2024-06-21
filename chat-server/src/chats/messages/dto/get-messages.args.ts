@@ -1,5 +1,5 @@
 import { IsNotEmpty } from '@nestjs/class-validator';
-import { Field, ArgsType } from '@nestjs/graphql';
+import { ArgsType, Field } from '@nestjs/graphql';
 
 @ArgsType()
 export class GetMessageArgs {

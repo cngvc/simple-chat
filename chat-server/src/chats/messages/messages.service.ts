@@ -1,9 +1,10 @@
-import { ChatsRepository } from './../chats.repository';
 import { Injectable } from '@nestjs/common';
-import { CreateMessageInput } from './dto/create-message.input';
-import { Message } from './entities/message.entity';
 import { Types } from 'mongoose';
+
+import { ChatsRepository } from './../chats.repository';
+import { CreateMessageInput } from './dto/create-message.input';
 import { GetMessageArgs } from './dto/get-messages.args';
+import { Message } from './entities/message.entity';
 
 @Injectable()
 export class MessagesService {

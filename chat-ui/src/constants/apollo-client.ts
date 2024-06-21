@@ -1,8 +1,9 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import { API_URL } from "./urls";
 import { onError } from "@apollo/client/link/error";
-import { excludedRoutes } from "./excluded-routes";
+
 import { onLogout } from "../utils/logout";
+import { excludedRoutes } from "./excluded-routes";
+import { API_URL } from "./urls";
 
 const logoutLink = onError((error) => {
   if (

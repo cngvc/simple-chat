@@ -1,13 +1,14 @@
-import { UsersRepository } from './users.repository';
 import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import * as bcrypt from 'bcrypt';
+import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {

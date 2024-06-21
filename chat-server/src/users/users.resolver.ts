@@ -1,12 +1,13 @@
+import { UseGuards } from '@nestjs/common';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
+import { CurrentUser } from './../auth/current-user.decorator';
 import { GqlAuthGuard } from './../auth/guards/gql-auth.guard';
 import { TokenPayload } from './../auth/token-payload.interface';
-import { CurrentUser } from './../auth/current-user.decorator';
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { UseGuards } from '@nestjs/common';
+import { User } from './entities/user.entity';
+import { UsersService } from './users.service';
 
 @Resolver(() => User)
 export class UsersResolver {

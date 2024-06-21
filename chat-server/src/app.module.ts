@@ -1,16 +1,18 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { JwtModule } from '@nestjs/jwt';
+import * as Joi from 'joi';
+import { LoggerModule } from 'nestjs-pino';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as Joi from 'joi';
-import { DatabaseModule } from './common/database/database.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { UsersModule } from './users/users.module';
-import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
 import { ChatsModule } from './chats/chats.module';
+import { DatabaseModule } from './common/database/database.module';
+import { PubSubModule } from './common/pubsub/pubsub.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -23,6 +25,9 @@ import { ChatsModule } from './chats/chats.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      subscriptions: {
+        'graphql-ws': true,
+      },
     }),
     DatabaseModule,
     LoggerModule.forRootAsync({
@@ -48,6 +53,7 @@ import { ChatsModule } from './chats/chats.module';
     AuthModule,
     UsersModule,
     ChatsModule,
+    PubSubModule,
   ],
   controllers: [AppController],
   providers: [AppService],

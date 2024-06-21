@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { ChatsResolver } from './chats.resolver';
 import { ChatsService } from './chats.service';
 

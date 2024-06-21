@@ -1,7 +1,8 @@
-import { Module, forwardRef } from '@nestjs/common';
-import { MessagesService } from './messages.service';
-import { MessagesResolver } from './messages.resolver';
+import { forwardRef, Module } from '@nestjs/common';
+
 import { ChatsModule } from '../chats.module';
+import { MessagesResolver } from './messages.resolver';
+import { MessagesService } from './messages.service';
 
 @Module({
   imports: [forwardRef(() => ChatsModule)],
