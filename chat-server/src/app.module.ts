@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ChatsModule } from './chats/chats.module';
 
 @Module({
   imports: [
@@ -24,7 +25,6 @@ import { JwtModule } from '@nestjs/jwt';
       autoSchemaFile: true,
     }),
     DatabaseModule,
-    UsersModule,
     LoggerModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
         const isProduction = configService.get('NODE_ENV') === 'production';
@@ -44,8 +44,10 @@ import { JwtModule } from '@nestjs/jwt';
       },
       inject: [ConfigService],
     }),
-    AuthModule,
     JwtModule,
+    AuthModule,
+    UsersModule,
+    ChatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

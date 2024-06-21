@@ -13,7 +13,6 @@ export class AuthService {
   ) {}
 
   async login(user: User, response: Response) {
-    console.log(1);
     const expires = new Date();
     expires.setSeconds(
       expires.getSeconds() +
@@ -29,6 +28,13 @@ export class AuthService {
     response.cookie('Authentication', token, {
       httpOnly: true,
       expires,
+    });
+  }
+
+  async logout(response: Response) {
+    response.cookie('Authentication', '', {
+      httpOnly: true,
+      expires: new Date(),
     });
   }
 }

@@ -27,10 +27,7 @@ const Auth: React.FC<Props> = ({ submitLabel, onSubmit, children, error }) => {
       spacing={3}
       sx={{
         height: "100vh",
-        maxWidth: {
-          xs: "75%",
-          md: "50%",
-        },
+        maxWidth: "360px",
         margin: "0 auto",
         justifyContent: "center",
       }}
