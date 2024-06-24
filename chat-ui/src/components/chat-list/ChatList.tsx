@@ -1,11 +1,13 @@
-import List from "@mui/material/List";
-import ChatListItem from "./chat-list-item/ChatListItem";
 import { Divider, Stack } from "@mui/material";
-import ChatListHeader from "./chat-list-header/ChatListHeader";
+import List from "@mui/material/List";
 import { useEffect, useState } from "react";
-import ChatListAdd from "./chat-list-add/ChatListAdd";
+
 import { useGetChats } from "../../hooks/useGetChats";
+import { useMessageCreated } from "../../hooks/useMessageCreated";
 import { usePath } from "../../hooks/usePath";
+import ChatListAdd from "./chat-list-add/ChatListAdd";
+import ChatListHeader from "./chat-list-header/ChatListHeader";
+import ChatListItem from "./chat-list-item/ChatListItem";
 
 const ChatList = () => {
   const [isChatListAddModalVisible, $isChatListAddModalVisible] =
@@ -13,6 +15,8 @@ const ChatList = () => {
   const { data } = useGetChats();
   const [selectedChatId, $selectedChatId] = useState("");
   const { path } = usePath();
+
+  useMessageCreated({ chatIds: data?.chats.map((e) => e._id) || [] });
 
   useEffect(() => {
     const pathSplit = path.split("chats/");
@@ -46,14 +50,24 @@ const ChatList = () => {
             overflow: "auto",
           }}
         >
-          {data?.chats
-            .map((chat) => (
-              <ChatListItem
-                chat={chat}
-                selected={chat._id === selectedChatId}
-              />
-            ))
-            .reverse()}
+          {data?.chats &&
+            [...data.chats]
+              .sort((prev, next) => {
+                if (!prev.latestMessage) {
+                  return -1;
+                }
+                return (
+                  new Date(prev.latestMessage?.createdAt).getTime() -
+                  new Date(next.latestMessage?.createdAt).getTime()
+                );
+              })
+              .map((chat) => (
+                <ChatListItem
+                  chat={chat}
+                  selected={chat._id === selectedChatId}
+                />
+              ))
+              .reverse()}
         </List>
       </Stack>
     </>

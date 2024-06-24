@@ -1,24 +1,25 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import route from "../Routes";
-import { useLogout } from "../../hooks/useLogout";
-import { onLogout } from "../../utils/logout";
 import { useReactiveVar } from "@apollo/client";
+import MenuIcon from "@mui/icons-material/Menu";
+import AppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+
 import { authenticatedVar } from "../../constants/authenticated";
-import { Page } from "../../interfaces/page.interface";
-import { snackVar } from "../../constants/snack";
 import { UNKNOWN_ERROR_SNACK_MESSAGE } from "../../constants/errors";
+import { snackVar } from "../../constants/snack";
+import { useLogout } from "../../hooks/useLogout";
+import { Page } from "../../interfaces/page.interface";
+import { onLogout } from "../../utils/logout";
+import route from "../Routes";
 
 const authenticatedPages: Page[] = [
   {

@@ -1,7 +1,8 @@
-import * as React from "react";
-import MUISnackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 import { useReactiveVar } from "@apollo/client";
+import Alert from "@mui/material/Alert";
+import MUISnackbar from "@mui/material/Snackbar";
+import * as React from "react";
+
 import { snackVar } from "../../constants/snack";
 
 const Snackbar = () => {

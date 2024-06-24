@@ -1,14 +1,16 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { Logger, Module, UnauthorizedException } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { JwtModule } from '@nestjs/jwt';
+import { Request } from 'express';
 import * as Joi from 'joi';
 import { LoggerModule } from 'nestjs-pino';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
 import { ChatsModule } from './chats/chats.module';
 import { DatabaseModule } from './common/database/database.module';
 import { PubSubModule } from './common/pubsub/pubsub.module';
@@ -22,12 +24,27 @@ import { UsersModule } from './users/users.module';
         MONGODB_URI: Joi.string().required(),
       }),
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: true,
-      subscriptions: {
-        'graphql-ws': true,
-      },
+      useFactory: (authService: AuthService) => ({
+        autoSchemaFile: true,
+        subscriptions: {
+          'graphql-ws': {
+            onConnect: (context: any) => {
+              try {
+                const request: Request = context.extra.request;
+                const user = authService.verifyWs(request);
+                context.user = user;
+              } catch (error) {
+                new Logger().error(error);
+                throw new UnauthorizedException();
+              }
+            },
+          },
+        },
+      }),
+      imports: [AuthModule],
+      inject: [AuthService],
     }),
     DatabaseModule,
     LoggerModule.forRootAsync({

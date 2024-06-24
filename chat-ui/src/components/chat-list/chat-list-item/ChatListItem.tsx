@@ -7,8 +7,9 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import route from "../../Routes";
+
 import { Chat } from "../../../gql/graphql";
+import route from "../../Routes";
 
 interface ChatListItemProps {
   chat: Chat;
@@ -36,9 +37,11 @@ const ChatListItem = ({ chat, selected }: ChatListItemProps) => {
                   variant="body2"
                   color="text.primary"
                 >
-                  User name
+                  {chat.latestMessage?.user.username || "Username"}
                 </Typography>
-                {" — Messages..."}
+                {" - "}
+                {chat.latestMessage?.content ||
+                  "The conversation has been created"}
               </>
             }
           />

@@ -1,18 +1,19 @@
+import { ApolloProvider } from "@apollo/client";
 import {
   Container,
+  createTheme,
   CssBaseline,
   Grid,
   ThemeProvider,
-  createTheme,
 } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
-import route from "./components/Routes";
-import { ApolloProvider } from "@apollo/client";
-import client from "./constants/apollo-client";
+
 import Guard from "./components/auth/Guard";
-import Header from "./components/header/Header";
-import Snackbar from "./components/snackbar/Snackbar";
 import ChatList from "./components/chat-list/ChatList";
+import Header from "./components/header/Header";
+import route from "./components/Routes";
+import Snackbar from "./components/snackbar/Snackbar";
+import client from "./constants/apollo-client";
 import { usePath } from "./hooks/usePath";
 
 const darkTheme = createTheme({

@@ -4,7 +4,8 @@ import { DatabaseModule } from './../common/database/database.module';
 import { ChatsRepository } from './chats.repository';
 import { ChatsResolver } from './chats.resolver';
 import { ChatsService } from './chats.service';
-import { Chat, ChatSchema } from './entities/chat.entity';
+import { ChatSchema } from './entities/chat.document';
+import { Chat } from './entities/chat.entity';
 import { MessagesModule } from './messages/messages.module';
 
 @Module({

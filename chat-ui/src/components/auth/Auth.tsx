@@ -8,10 +8,17 @@ interface Props {
   submitLabel: string;
   onSubmit: (credentials: { email: string; password: string }) => Promise<void>;
   children: React.ReactNode;
+  extraFields?: React.ReactNode[];
   error?: string;
 }
 
-const Auth: React.FC<Props> = ({ submitLabel, onSubmit, children, error }) => {
+const Auth: React.FC<Props> = ({
+  submitLabel,
+  onSubmit,
+  children,
+  extraFields,
+  error,
+}) => {
   const [email, $email] = useState("");
   const [password, $password] = useState("");
   const { data } = useGetMe();
@@ -42,6 +49,7 @@ const Auth: React.FC<Props> = ({ submitLabel, onSubmit, children, error }) => {
         error={!!error}
         helperText={error}
       />
+      {extraFields}
       <TextField
         type="password"
         label="Password"

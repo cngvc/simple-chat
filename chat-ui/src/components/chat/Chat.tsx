@@ -1,5 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
-import { useGetChat } from "../../hooks/useGetChat";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Avatar,
   Box,
@@ -11,16 +10,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { useCreateMessage } from "../../hooks/useCreateMessage";
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+
+import { useCreateMessage } from "../../hooks/useCreateMessage";
+import { useGetChat } from "../../hooks/useGetChat";
 import { useGetMessages } from "../../hooks/useGetMessages";
 
 const Chat = () => {
   const params = useParams();
   const chatId = params._id!;
   const [message, $message] = useState("");
-  const [createMessage] = useCreateMessage(chatId);
+  const [createMessage] = useCreateMessage();
   const { data: chat } = useGetChat({ _id: chatId });
   const { data: messages } = useGetMessages({
     chatId,
@@ -52,25 +53,32 @@ const Chat = () => {
       <h1>{chat?.chat.name}</h1>
 
       <Box sx={{ maxHeight: "70vh", overflow: "auto " }}>
-        {messages?.messages.map((e) => (
-          <Grid container alignItems={"center"} marginBottom={"1rem"}>
-            <Grid item xs={3} md={1}>
-              <Avatar src="" sx={{ width: 52, height: 52 }} />
-            </Grid>
-            <Grid item xs={9} md={11}>
-              <Stack>
-                <Paper sx={{ width: "fit-content" }}>
-                  <Typography sx={{ padding: "0.5rem" }}>
-                    {e.content}
-                  </Typography>
-                </Paper>
-                <Typography variant="caption" sx={{ margin: "0.25rem" }}>
-                  {new Date(e.createdAt).toLocaleTimeString()}
-                </Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        ))}
+        {messages?.messages &&
+          [...messages.messages]
+            .sort(
+              (prev, next) =>
+                new Date(prev.createdAt).getTime() -
+                new Date(next.createdAt).getTime()
+            )
+            .map((e) => (
+              <Grid container alignItems={"center"} marginBottom={"1rem"}>
+                <Grid item style={{ width: "68px" }}>
+                  <Avatar src="" sx={{ width: 52, height: 52 }} />
+                </Grid>
+                <Grid item xs>
+                  <Stack>
+                    <Paper sx={{ width: "fit-content" }}>
+                      <Typography sx={{ padding: "0.5rem" }}>
+                        {e.content}
+                      </Typography>
+                    </Paper>
+                    <Typography variant="caption" sx={{ margin: "0.25rem" }}>
+                      {new Date(e.createdAt).toLocaleTimeString()}
+                    </Typography>
+                  </Stack>
+                </Grid>
+              </Grid>
+            ))}
         <div ref={divRef} />
       </Box>
 
